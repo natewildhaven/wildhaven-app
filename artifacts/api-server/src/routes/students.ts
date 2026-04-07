@@ -86,7 +86,12 @@ router.post("/students", async (req: any, res: any): Promise<void> => {
   }
 
   try {
-    const [student] = await db.insert(studentsTable).values(parsed.data).returning();
+    const studentValues = {
+      name: parsed.data.name,
+      pin: parsed.data.pin,
+    };
+
+    const [student] = await db.insert(studentsTable).values(studentValues).returning();
     res.status(201).json({ ...student, classIds: [] });
   } catch (err: unknown) {
     if (err && typeof err === "object" && "code" in err && (err as { code: string }).code === "23505") {
