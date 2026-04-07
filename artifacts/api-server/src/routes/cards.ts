@@ -47,10 +47,16 @@ router.post("/cards", async (req: any, res: any): Promise<void> => {
     return;
   }
 
-  const [card] = await db.insert(cardsTable).values({
-    ...parsed.data,
+  const cardValues = {
+    name: parsed.data.name,
+    packId: parsed.data.packId,
+    cardNumber: parsed.data.cardNumber,
+    imageUrl: parsed.data.imageUrl,
+    tags: parsed.data.tags,
     rarity: parsed.data.rarity as Rarity,
-  }).returning();
+  };
+
+  const [card] = await db.insert(cardsTable).values(cardValues).returning();
   res.status(201).json(card);
 });
 
