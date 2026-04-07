@@ -20,7 +20,7 @@ import {
 
 const router = Router();
 
-router.get("/collections/:studentId", async (req, res): Promise<void> => {
+router.get("/collections/:studentId", async (req: any, res: any): Promise<void> => {
   const params = GetStudentCollectionParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -155,7 +155,7 @@ router.get("/collections/:studentId", async (req, res): Promise<void> => {
   });
 });
 
-router.post("/collections/:studentId/entries", async (req, res): Promise<void> => {
+router.post("/collections/:studentId/entries", async (req: any, res: any): Promise<void> => {
   const params = AddCollectionEntryParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -182,7 +182,7 @@ router.post("/collections/:studentId/entries", async (req, res): Promise<void> =
   res.status(201).json({ ...entry, card });
 });
 
-router.delete("/collections/:studentId/entries/:entryId", async (req, res): Promise<void> => {
+router.delete("/collections/:studentId/entries/:entryId", async (req: any, res: any): Promise<void> => {
   const params = RemoveCollectionEntryParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
