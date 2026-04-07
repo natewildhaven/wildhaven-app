@@ -15,7 +15,7 @@ import {
   mysteryBoxesTable,
   studentFigurinesTable,
   figurineRaritiesTable,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 
 const router = Router();
