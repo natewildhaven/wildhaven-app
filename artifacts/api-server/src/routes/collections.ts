@@ -1,6 +1,15 @@
 import { Router } from "express";
-import { eq, and, sql } from "drizzle-orm";
-import { db, studentsTable, cardsTable, collectionEntriesTable, packsTable, type Rarity } from "@workspace/db";
+import {
+  db,
+  eq,
+  and,
+  sql,
+  studentsTable,
+  cardsTable,
+  collectionEntriesTable,
+  packsTable,
+  type Rarity,
+} from "@workspace/db";
 import {
   GetStudentCollectionParams,
   GetStudentCollectionQueryParams,
