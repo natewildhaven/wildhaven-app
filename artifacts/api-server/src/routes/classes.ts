@@ -11,12 +11,12 @@ import {
 
 const router = Router();
 
-router.get("/classes", async (_req, res): Promise<void> => {
+router.get("/classes", async (_req: any, res: any): Promise<void> => {
   const classes = await db.select().from(classesTable).orderBy(asc(classesTable.sortOrder), asc(classesTable.createdAt));
   res.json(classes);
 });
 
-router.post("/classes", async (req, res): Promise<void> => {
+router.post("/classes", async (req: any, res: any): Promise<void> => {
   const { name, teacher, color } = req.body as { name?: string; teacher?: string; color?: string };
   if (!name?.trim()) {
     res.status(400).json({ error: "Class name required" });
@@ -29,7 +29,7 @@ router.post("/classes", async (req, res): Promise<void> => {
   res.status(201).json(cls);
 });
 
-router.patch("/classes/:id", async (req, res): Promise<void> => {
+router.patch("/classes/:id", async (req: any, res: any): Promise<void> => {
   const id = Number(req.params.id);
   if (!id) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, teacher, color, sortOrder } = req.body as { name?: string; teacher?: string; color?: string; sortOrder?: number };
@@ -44,7 +44,7 @@ router.patch("/classes/:id", async (req, res): Promise<void> => {
   res.json(cls);
 });
 
-router.post("/classes/reorder", async (req, res): Promise<void> => {
+router.post("/classes/reorder", async (req: any, res: any): Promise<void> => {
   const { items } = req.body as { items?: Array<{ id: number; sortOrder: number }> };
   if (!Array.isArray(items) || items.length === 0) {
     res.status(400).json({ error: "items array required" });
@@ -58,7 +58,7 @@ router.post("/classes/reorder", async (req, res): Promise<void> => {
   res.json({ ok: true });
 });
 
-router.delete("/classes/:id", async (req, res): Promise<void> => {
+router.delete("/classes/:id", async (req: any, res: any): Promise<void> => {
   const id = Number(req.params.id);
   if (!id) { res.status(400).json({ error: "Invalid id" }); return; }
   const [cls] = await db.delete(classesTable).where(eq(classesTable.id, id)).returning();
@@ -67,7 +67,7 @@ router.delete("/classes/:id", async (req, res): Promise<void> => {
 });
 
 // Add a student to a class
-router.post("/students/:id/classes", async (req, res): Promise<void> => {
+router.post("/students/:id/classes", async (req: any, res: any): Promise<void> => {
   const studentId = Number(req.params.id);
   const { classId } = req.body as { classId?: number };
   if (!studentId || !classId) {
@@ -82,7 +82,7 @@ router.post("/students/:id/classes", async (req, res): Promise<void> => {
 });
 
 // Remove a student from a class
-router.delete("/students/:id/classes/:classId", async (req, res): Promise<void> => {
+router.delete("/students/:id/classes/:classId", async (req: any, res: any): Promise<void> => {
   const studentId = Number(req.params.id);
   const classId = Number(req.params.classId);
   if (!studentId || !classId) {
