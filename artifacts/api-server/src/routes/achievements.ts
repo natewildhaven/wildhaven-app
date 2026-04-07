@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, and, inArray, asc } from "drizzle-orm";
 import {
   db,
@@ -8,7 +8,7 @@ import {
   cardsTable,
 } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 // ── Rule types ──────────────────────────────────────────────────────────────
 
