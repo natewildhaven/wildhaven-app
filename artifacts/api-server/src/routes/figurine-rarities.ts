@@ -1,8 +1,8 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq } from "drizzle-orm";
 import { db, figurineRaritiesTable } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/figurine-rarities", async (_req, res): Promise<void> => {
   const rarities = await db.select().from(figurineRaritiesTable).orderBy(figurineRaritiesTable.sortOrder, figurineRaritiesTable.id);
