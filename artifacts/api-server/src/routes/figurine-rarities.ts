@@ -7,12 +7,12 @@ import {
 
 const router = Router();
 
-router.get("/figurine-rarities", async (_req, res): Promise<void> => {
+router.get("/figurine-rarities", async (_req: any, res: any): Promise<void> => {
   const rarities = await db.select().from(figurineRaritiesTable).orderBy(figurineRaritiesTable.sortOrder, figurineRaritiesTable.id);
   res.json(rarities);
 });
 
-router.post("/figurine-rarities", async (req, res): Promise<void> => {
+router.post("/figurine-rarities", async (req: any, res: any): Promise<void> => {
   const { name, color, coinValue, sortOrder } = req.body as {
     name?: string; color?: string; coinValue?: number; sortOrder?: number;
   };
@@ -23,7 +23,7 @@ router.post("/figurine-rarities", async (req, res): Promise<void> => {
   res.status(201).json(rarity);
 });
 
-router.patch("/figurine-rarities/:id", async (req, res): Promise<void> => {
+router.patch("/figurine-rarities/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, color, coinValue, sortOrder } = req.body as {
@@ -39,7 +39,7 @@ router.patch("/figurine-rarities/:id", async (req, res): Promise<void> => {
   res.json(rarity);
 });
 
-router.delete("/figurine-rarities/:id", async (req, res): Promise<void> => {
+router.delete("/figurine-rarities/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const [rarity] = await db.delete(figurineRaritiesTable).where(eq(figurineRaritiesTable.id, id)).returning();
