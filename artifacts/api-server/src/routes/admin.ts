@@ -1,9 +1,9 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, and, inArray, sql } from "drizzle-orm";
 import { db, studentsTable, cardsTable, collectionEntriesTable, packsTable, studentClassesTable, settingsTable, figurinesTable, mysteryBoxesTable, studentFigurinesTable, figurineRaritiesTable } from "@workspace/db";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/admin/overview", async (_req, res): Promise<void> => {
   const [students, allCards, allPacks, allEntries, allStudentClasses] = await Promise.all([
