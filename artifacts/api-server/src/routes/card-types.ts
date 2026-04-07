@@ -7,12 +7,12 @@ import {
 
 const router = Router();
 
-router.get("/card-types", async (_req, res): Promise<void> => {
+router.get("/card-types", async (_req: any, res: any): Promise<void> => {
   const types = await db.select().from(cardTypesTable).orderBy(cardTypesTable.sortOrder);
   res.json(types);
 });
 
-router.post("/card-types", async (req, res): Promise<void> => {
+router.post("/card-types", async (req: any, res: any): Promise<void> => {
   const { name, color, sortOrder } = req.body as { name?: string; color?: string; sortOrder?: number };
   if (!name) { res.status(400).json({ error: "name is required" }); return; }
   try {
@@ -27,7 +27,7 @@ router.post("/card-types", async (req, res): Promise<void> => {
   }
 });
 
-router.patch("/card-types/:id", async (req, res): Promise<void> => {
+router.patch("/card-types/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, color, sortOrder } = req.body as { name?: string; color?: string; sortOrder?: number };
@@ -45,7 +45,7 @@ router.patch("/card-types/:id", async (req, res): Promise<void> => {
   }
 });
 
-router.delete("/card-types/:id", async (req, res): Promise<void> => {
+router.delete("/card-types/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   await db.delete(cardTypesTable).where(eq(cardTypesTable.id, id));
