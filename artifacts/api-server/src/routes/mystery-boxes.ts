@@ -16,12 +16,12 @@ const router = Router();
 
 // ── Mystery Boxes ───────────────────────────────────────────────────────────
 
-router.get("/mystery-boxes", async (_req, res): Promise<void> => {
+router.get("/mystery-boxes", async (_req: any, res: any): Promise<void> => {
   const boxes = await db.select().from(mysteryBoxesTable).orderBy(mysteryBoxesTable.id);
   res.json(boxes);
 });
 
-router.get("/mystery-boxes/:id", async (req, res): Promise<void> => {
+router.get("/mystery-boxes/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const [box] = await db.select().from(mysteryBoxesTable).where(eq(mysteryBoxesTable.id, id));
@@ -29,7 +29,7 @@ router.get("/mystery-boxes/:id", async (req, res): Promise<void> => {
   res.json(box);
 });
 
-router.post("/mystery-boxes", async (req, res): Promise<void> => {
+router.post("/mystery-boxes", async (req: any, res: any): Promise<void> => {
   const { name, description, coverImageUrl, availableInShop, coinPrice } = req.body as {
     name?: string; description?: string; coverImageUrl?: string; availableInShop?: boolean; coinPrice?: number;
   };
@@ -41,7 +41,7 @@ router.post("/mystery-boxes", async (req, res): Promise<void> => {
   res.status(201).json(box);
 });
 
-router.patch("/mystery-boxes/:id", async (req, res): Promise<void> => {
+router.patch("/mystery-boxes/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, description, coverImageUrl, availableInShop, coinPrice } = req.body as {
@@ -58,7 +58,7 @@ router.patch("/mystery-boxes/:id", async (req, res): Promise<void> => {
   res.json(box);
 });
 
-router.delete("/mystery-boxes/:id", async (req, res): Promise<void> => {
+router.delete("/mystery-boxes/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const [box] = await db.delete(mysteryBoxesTable).where(eq(mysteryBoxesTable.id, id)).returning();
@@ -68,7 +68,7 @@ router.delete("/mystery-boxes/:id", async (req, res): Promise<void> => {
 
 // ── Rarity Probabilities per Box ────────────────────────────────────────────
 
-router.get("/mystery-boxes/:id/rarity-probs", async (req, res): Promise<void> => {
+router.get("/mystery-boxes/:id/rarity-probs", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const probs = await db
@@ -85,7 +85,7 @@ router.get("/mystery-boxes/:id/rarity-probs", async (req, res): Promise<void> =>
   res.json(probs);
 });
 
-router.put("/mystery-boxes/:id/rarity-probs", async (req, res): Promise<void> => {
+router.put("/mystery-boxes/:id/rarity-probs", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const probs = req.body as Array<{ rarityId: number; probability: number }>;
@@ -99,7 +99,7 @@ router.put("/mystery-boxes/:id/rarity-probs", async (req, res): Promise<void> =>
 
 // ── Figurines within a box ──────────────────────────────────────────────────
 
-router.get("/mystery-boxes/:id/figurines", async (req, res): Promise<void> => {
+router.get("/mystery-boxes/:id/figurines", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const figurines = await db
@@ -122,7 +122,7 @@ router.get("/mystery-boxes/:id/figurines", async (req, res): Promise<void> => {
   res.json(figurines);
 });
 
-router.post("/mystery-boxes/:id/figurines", async (req, res): Promise<void> => {
+router.post("/mystery-boxes/:id/figurines", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, imageUrl, glowColor, rarityId, figurineNumber } = req.body as {
@@ -137,7 +137,7 @@ router.post("/mystery-boxes/:id/figurines", async (req, res): Promise<void> => {
   res.status(201).json(figurine);
 });
 
-router.patch("/figurines/:id", async (req, res): Promise<void> => {
+router.patch("/figurines/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, imageUrl, glowColor, rarityId, figurineNumber } = req.body as {
@@ -154,7 +154,7 @@ router.patch("/figurines/:id", async (req, res): Promise<void> => {
   res.json(fig);
 });
 
-router.delete("/figurines/:id", async (req, res): Promise<void> => {
+router.delete("/figurines/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const [fig] = await db.delete(figurinesTable).where(eq(figurinesTable.id, id)).returning();
@@ -164,7 +164,7 @@ router.delete("/figurines/:id", async (req, res): Promise<void> => {
 
 // ── Student box inventory ───────────────────────────────────────────────────
 
-router.get("/students/:studentId/box-inventory", async (req, res): Promise<void> => {
+router.get("/students/:studentId/box-inventory", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const rows = await db
@@ -180,7 +180,7 @@ router.get("/students/:studentId/box-inventory", async (req, res): Promise<void>
   res.json(rows);
 });
 
-router.post("/students/:studentId/box-inventory/adjust", async (req, res): Promise<void> => {
+router.post("/students/:studentId/box-inventory/adjust", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { boxId, delta } = req.body as { boxId?: number; delta?: number };
@@ -203,7 +203,7 @@ router.post("/students/:studentId/box-inventory/adjust", async (req, res): Promi
 
 // ── Open a mystery box ──────────────────────────────────────────────────────
 
-router.post("/students/:studentId/box-inventory/open", async (req, res): Promise<void> => {
+router.post("/students/:studentId/box-inventory/open", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { boxId } = req.body as { boxId?: number };
@@ -286,7 +286,7 @@ router.post("/students/:studentId/box-inventory/open", async (req, res): Promise
 
 // ── Student figurine collection ─────────────────────────────────────────────
 
-router.get("/students/:studentId/figurines", async (req, res): Promise<void> => {
+router.get("/students/:studentId/figurines", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const rows = await db
@@ -314,7 +314,7 @@ router.get("/students/:studentId/figurines", async (req, res): Promise<void> => 
 
 // ── Student figurine collection count per box ───────────────────────────────
 
-router.get("/students/:studentId/figurines/counts", async (req, res): Promise<void> => {
+router.get("/students/:studentId/figurines/counts", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const rows = await db
