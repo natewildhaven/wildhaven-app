@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, asc, desc, inArray } from "drizzle-orm";
 import {
   db,
@@ -11,7 +11,7 @@ import {
   studentAchievementsTable,
 } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 const MAX_BACKUPS = 60;
 
