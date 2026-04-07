@@ -1,38 +1,40 @@
-import app from "./app.js";
-import { logger } from "./lib/logger.js";
-import cron from "node-cron";
-import { createBackup } from "./routes/backups.js";
+import { Router } from "express";
+import healthRouter from "./health.js";
+import studentsRouter from "./students.js";
+import packsRouter from "./packs.js";
+import cardsRouter from "./cards.js";
+import collectionsRouter from "./collections.js";
+import uploadsRouter from "./uploads.js";
+import adminRouter from "./admin.js";
+import classesRouter from "./classes.js";
+import settingsRouter from "./settings.js";
+import mysteryBoxesRouter from "./mystery-boxes.js";
+import figurineRaritiesRouter from "./figurine-rarities.js";
+import shopRouter from "./shop.js";
+import achievementsRouter from "./achievements.js";
+import cardRaritiesRouter from "./card-rarities.js";
+import cardTypesRouter from "./card-types.js";
+import backupsRouter from "./backups.js";
+import keepaliveRouter from "./keepalive.js";
 
-const rawPort = process.env["PORT"];
+const router = Router();
 
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
+router.use(healthRouter);
+router.use(keepaliveRouter);
+router.use(studentsRouter);
+router.use(packsRouter);
+router.use(cardsRouter);
+router.use(collectionsRouter);
+router.use(uploadsRouter);
+router.use(adminRouter);
+router.use(classesRouter);
+router.use(settingsRouter);
+router.use(mysteryBoxesRouter);
+router.use(figurineRaritiesRouter);
+router.use(shopRouter);
+router.use(achievementsRouter);
+router.use(cardRaritiesRouter);
+router.use(cardTypesRouter);
+router.use(backupsRouter);
 
-const port = Number(rawPort);
-
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
-}
-
-app.listen(port, (err) => {
-  if (err) {
-    logger.error({ err }, "Error listening on port");
-    process.exit(1);
-  }
-
-  logger.info({ port }, "Server listening");
-
-  cron.schedule("0 2 * * *", async () => {
-    try {
-      const id = await createBackup();
-      logger.info({ id }, "Daily auto-backup created");
-    } catch (err) {
-      logger.error({ err }, "Daily auto-backup failed");
-    }
-  });
-
-  logger.info("Daily backup scheduled at 02:00 AM");
-});
+export default router;
