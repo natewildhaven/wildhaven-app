@@ -78,25 +78,25 @@ const router = Router();
 
 // ── Upload endpoints ──────────────────────────────────────────────────────────
 
-router.post("/uploads/card-image", imageUpload.single("file"), async (req, res): Promise<void> => {
+router.post("/uploads/card-image", imageUpload.single("file"), async (req: any, res: any): Promise<void> => {
   if (!req.file) { res.status(400).json({ error: "No file uploaded or invalid file type" }); return; }
   try { res.json({ url: await saveFile(req.file, "card-images") }); }
   catch { res.status(500).json({ error: "Upload failed" }); }
 });
 
-router.post("/uploads/image", anyUpload.single("file"), async (req, res): Promise<void> => {
+router.post("/uploads/image", anyUpload.single("file"), async (req: any, res: any): Promise<void> => {
   if (!req.file) { res.status(400).json({ error: "No file uploaded" }); return; }
   try { res.json({ url: await saveFile(req.file, "images") }); }
   catch { res.status(500).json({ error: "Upload failed" }); }
 });
 
-router.post("/uploads/audio", audioUpload.single("file"), async (req, res): Promise<void> => {
+router.post("/uploads/audio", audioUpload.single("file"), async (req: any, res: any): Promise<void> => {
   if (!req.file) { res.status(400).json({ error: "No file uploaded" }); return; }
   try { res.json({ url: await saveFile(req.file, "audio") }); }
   catch { res.status(500).json({ error: "Upload failed" }); }
 });
 
-router.post("/uploads/video", videoUpload.single("file"), async (req, res): Promise<void> => {
+router.post("/uploads/video", videoUpload.single("file"), async (req: any, res: any): Promise<void> => {
   if (!req.file) { res.status(400).json({ error: "No file uploaded or invalid file type" }); return; }
   try { res.json({ url: await saveFile(req.file, "video") }); }
   catch { res.status(500).json({ error: "Upload failed" }); }
@@ -104,7 +104,7 @@ router.post("/uploads/video", videoUpload.single("file"), async (req, res): Prom
 
 // ── Proxy: stream a file from R2 by its key ───────────────────────────────────
 
-router.get("/uploads/r2/*key", async (req, res): Promise<void> => {
+router.get("/uploads/r2/*key", async (req: any, res: any): Promise<void> => {
   const rawKey = req.params["key"];
   const key = decodeURIComponent(Array.isArray(rawKey) ? rawKey.join("/") : rawKey);
   const result = await streamFromS3(key);
@@ -116,7 +116,7 @@ router.get("/uploads/r2/*key", async (req, res): Promise<void> => {
 
 // ── Local disk fallback serve ─────────────────────────────────────────────────
 
-router.get("/uploads/:filename", (req, res): void => {
+router.get("/uploads/:filename", (req: any, res: any): void => {
   const filename = Array.isArray(req.params.filename) ? req.params.filename[0] : req.params.filename;
   const filePath = path.join(localUploadsDir, filename);
   if (!fs.existsSync(filePath)) { res.status(404).json({ error: "File not found" }); return; }
