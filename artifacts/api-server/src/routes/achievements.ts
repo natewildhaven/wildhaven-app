@@ -157,8 +157,8 @@ router.post("/students/:studentId/achievements/check", async (req: any, res: any
     db.select({ achievementId: studentAchievementsTable.achievementId }).from(studentAchievementsTable).where(eq(studentAchievementsTable.studentId, studentId)),
   ]);
 
-  const studentCardIds = new Set(entries.map(e => e.cardId));
-  const alreadyEarnedIds = new Set(alreadyEarned.map(e => e.achievementId));
+  const studentCardIds = new Set<number>(entries.map(e => e.cardId as number));
+  const alreadyEarnedIds = new Set<number>(alreadyEarned.map(e => e.achievementId as number));
 
   const newlyEarned: number[] = [];
 
