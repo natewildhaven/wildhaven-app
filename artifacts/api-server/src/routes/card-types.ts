@@ -3,7 +3,7 @@ import {
   db,
   eq,
   cardTypesTable,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 
 const router = Router();
 
