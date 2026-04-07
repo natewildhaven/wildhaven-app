@@ -2,15 +2,10 @@ import { Router } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import { fileURLToPath } from "url";
 import { uploadToS3, streamFromS3, s3IsConfigured } from "../lib/s3Storage.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// On Vercel/serverless, only /tmp is writable.
-// This is just a fallback when S3/R2 is not configured.
 const localUploadsDir = path.join("/tmp", "uploads");
+
 if (!fs.existsSync(localUploadsDir)) {
   fs.mkdirSync(localUploadsDir, { recursive: true });
 }
