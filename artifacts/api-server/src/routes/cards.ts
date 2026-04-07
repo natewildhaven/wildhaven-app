@@ -5,7 +5,7 @@ import {
   sql,
   cardsTable,
   type Rarity,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 import {
   CreateCardBody,
   UpdateCardBody,
@@ -13,7 +13,7 @@ import {
   UpdateCardParams,
   DeleteCardParams,
   ListCardsQueryParams,
-} from "@workspace/api-zod";
+} from "../../../../lib/api-zod/src/index.js";
 
 const router = Router();
 
