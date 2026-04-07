@@ -57,7 +57,7 @@ export async function createBackup(label?: string): Promise<number> {
   return inserted!.id;
 }
 
-router.get("/backups", async (_req, res): Promise<void> => {
+router.get("/backups", async (_req: any, res: any): Promise<void> => {
   const backups = await db
     .select({
       id: backupsTable.id,
@@ -70,13 +70,13 @@ router.get("/backups", async (_req, res): Promise<void> => {
   res.json(backups);
 });
 
-router.post("/backups", async (req, res): Promise<void> => {
+router.post("/backups", async (req: any, res: any): Promise<void> => {
   const label = typeof req.body?.label === "string" ? req.body.label : undefined;
   const id = await createBackup(label);
   res.status(201).json({ id });
 });
 
-router.post("/backups/:id/restore", async (req, res): Promise<void> => {
+router.post("/backups/:id/restore", async (req: any, res: any): Promise<void> => {
   const backupId = parseInt(req.params.id ?? "", 10);
   if (isNaN(backupId)) {
     res.status(400).json({ error: "Invalid backup ID" });
@@ -165,7 +165,7 @@ router.post("/backups/:id/restore", async (req, res): Promise<void> => {
   res.json({ ok: true, restoredStudents: snapshot.students.length });
 });
 
-router.delete("/backups/:id", async (req, res): Promise<void> => {
+router.delete("/backups/:id", async (req: any, res: any): Promise<void> => {
   const backupId = parseInt(req.params.id ?? "", 10);
   if (isNaN(backupId)) {
     res.status(400).json({ error: "Invalid backup ID" });
