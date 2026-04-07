@@ -268,7 +268,7 @@ router.post("/packs/:packId/open", async (req: any, res: any): Promise<void> => 
   const duplicateCardIdsT: number[] = [];
   let coinsAwardedT = 0;
 
-  const availableRarities = [...new Set(allCards.map(c => c.rarity))];
+  const availableRarities = [...new Set(allCards.map(c => c.rarity))] as string[];
 
   for (let i = 0; i < drawCount; i++) {
     const rarity = drawRarityForPack(pack, availableRarities);
