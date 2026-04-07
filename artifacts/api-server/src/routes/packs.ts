@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, sql, count, and } from "drizzle-orm";
 import { db, packsTable, cardsTable, studentsTable, collectionEntriesTable } from "@workspace/db";
 import { rarityValues, type Rarity } from "@workspace/db";
@@ -13,7 +13,7 @@ import {
   OpenPackBody,
 } from "@workspace/api-zod";
 
-const router: IRouter = Router();
+const router = Router();
 
 function drawRarityForPack(pack: { commonChance: number; rareChance: number; epicChance: number; mythicChance: number; legendaryChance: number; customRarityChances?: Record<string, number> | null }, availableRarities?: string[]): string {
   const weights: Record<string, number> = {
