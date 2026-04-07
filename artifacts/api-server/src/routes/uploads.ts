@@ -8,7 +8,9 @@ import { uploadToS3, streamFromS3, s3IsConfigured } from "../lib/s3Storage.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const localUploadsDir = path.join(__dirname, "../../../../public/uploads");
+// On Vercel/serverless, only /tmp is writable.
+// This is just a fallback when S3/R2 is not configured.
+const localUploadsDir = path.join("/tmp", "uploads");
 if (!fs.existsSync(localUploadsDir)) {
   fs.mkdirSync(localUploadsDir, { recursive: true });
 }
