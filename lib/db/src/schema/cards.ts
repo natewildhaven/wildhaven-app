@@ -1,7 +1,7 @@
 import { pgTable, text, serial, timestamp, integer, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
-import { packsTable } from "./packs";
+import { packsTable } from "./packs.js";
 
 export const rarityValues = ["Common", "Rare", "Epic", "Mythic", "Legendary"] as const;
 export type Rarity = typeof rarityValues[number];
