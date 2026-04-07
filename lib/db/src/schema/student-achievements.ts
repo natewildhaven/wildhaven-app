@@ -1,6 +1,6 @@
 import { pgTable, serial, integer, timestamp, unique } from "drizzle-orm/pg-core";
-import { studentsTable } from "./students";
-import { achievementsTable } from "./achievements";
+import { studentsTable } from "./students.js";
+import { achievementsTable } from "./achievements.js";
 
 export const studentAchievementsTable = pgTable("student_achievements", {
   id: serial("id").primaryKey(),
