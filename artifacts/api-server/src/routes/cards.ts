@@ -1,6 +1,11 @@
 import { Router } from "express";
-import { eq, sql } from "drizzle-orm";
-import { db, cardsTable, type Rarity } from "@workspace/db";
+import {
+  db,
+  eq,
+  sql,
+  cardsTable,
+  type Rarity,
+} from "@workspace/db";
 import {
   CreateCardBody,
   UpdateCardBody,
