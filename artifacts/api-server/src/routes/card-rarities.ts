@@ -73,13 +73,13 @@ export async function getCardRarityCoinValues(): Promise<Record<string, number>>
   };
 }
 
-router.get("/card-rarities", async (_req, res): Promise<void> => {
+router.get("/card-rarities", async (_req: any, res: any): Promise<void> => {
   await ensureCardRarityDefaults();
   const rarities = await db.select().from(cardRaritiesTable).orderBy(cardRaritiesTable.sortOrder);
   res.json(rarities);
 });
 
-router.post("/card-rarities", async (req, res): Promise<void> => {
+router.post("/card-rarities", async (req: any, res: any): Promise<void> => {
   const { name, color, icon, iconUrl, coinValue, sortOrder, effects } = req.body as {
     name?: string; color?: string; icon?: string; iconUrl?: string; coinValue?: number; sortOrder?: number; effects?: object;
   };
@@ -100,7 +100,7 @@ router.post("/card-rarities", async (req, res): Promise<void> => {
   }
 });
 
-router.patch("/card-rarities/:id", async (req, res): Promise<void> => {
+router.patch("/card-rarities/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const { name, color, icon, iconUrl, soundUrl, coinValue, sortOrder, effects } = req.body as {
@@ -125,7 +125,7 @@ router.patch("/card-rarities/:id", async (req, res): Promise<void> => {
   }
 });
 
-router.delete("/card-rarities/:id", async (req, res): Promise<void> => {
+router.delete("/card-rarities/:id", async (req: any, res: any): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
   const [rarity] = await db.delete(cardRaritiesTable).where(eq(cardRaritiesTable.id, id)).returning();
@@ -133,7 +133,7 @@ router.delete("/card-rarities/:id", async (req, res): Promise<void> => {
   res.sendStatus(204);
 });
 
-router.post("/card-rarities/restore-defaults", async (_req, res): Promise<void> => {
+router.post("/card-rarities/restore-defaults", async (_req: any, res: any): Promise<void> => {
   await db.delete(cardRaritiesTable);
   await db.insert(cardRaritiesTable).values(DEFAULT_CARD_RARITIES);
   const rarities = await db.select().from(cardRaritiesTable).orderBy(cardRaritiesTable.sortOrder);
