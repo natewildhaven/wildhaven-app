@@ -40,7 +40,7 @@ function drawRarityForPack(pack: { commonChance: number; rareChance: number; epi
 
 // ── Buy a specific pack with coins ──────────────────────────────────────────
 
-router.post("/students/:studentId/shop/buy-pack", async (req, res): Promise<void> => {
+router.post("/students/:studentId/shop/buy-pack", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
 
@@ -119,7 +119,7 @@ router.post("/students/:studentId/shop/buy-pack", async (req, res): Promise<void
 
 // ── Buy a mystery box with coins ────────────────────────────────────────────
 
-router.post("/students/:studentId/shop/buy-box", async (req, res): Promise<void> => {
+router.post("/students/:studentId/shop/buy-box", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
 
