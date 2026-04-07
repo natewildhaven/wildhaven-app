@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, and } from "drizzle-orm";
 import {
   db,
@@ -17,7 +17,7 @@ import {
 import { rarityValues, type Rarity } from "@workspace/db";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 
-const router: IRouter = Router();
+const router = Router();
 
 function drawRarityForPack(pack: { commonChance: number; rareChance: number; epicChance: number; mythicChance: number; legendaryChance: number }): Rarity {
   const weights: Record<Rarity, number> = {
