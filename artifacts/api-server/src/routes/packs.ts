@@ -94,7 +94,19 @@ router.post("/packs", async (req: any, res: any): Promise<void> => {
     return;
   }
 
-  const [pack] = await db.insert(packsTable).values(parsed.data).returning();
+  const packValues = {
+    name: parsed.data.name,
+    description: parsed.data.description,
+    coverImageUrl: parsed.data.coverImageUrl,
+    cardBackImageUrl: parsed.data.cardBackImageUrl,
+    commonChance: parsed.data.commonChance,
+    rareChance: parsed.data.rareChance,
+    epicChance: parsed.data.epicChance,
+    mythicChance: parsed.data.mythicChance,
+    legendaryChance: parsed.data.legendaryChance,
+  };
+
+  const [pack] = await db.insert(packsTable).values(packValues).returning();
   res.status(201).json(pack);
 });
 
