@@ -1,6 +1,9 @@
 import { Router } from "express";
-import { eq } from "drizzle-orm";
-import { db, cardTypesTable } from "@workspace/db";
+import {
+  db,
+  eq,
+  cardTypesTable,
+} from "@workspace/db";
 
 const router = Router();
 
