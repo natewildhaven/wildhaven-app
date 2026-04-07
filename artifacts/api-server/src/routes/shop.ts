@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { eq, and } from "drizzle-orm";
 import {
   db,
+  eq,
+  and,
   studentsTable,
   packsTable,
   cardsTable,
@@ -13,8 +14,9 @@ import {
   figurineRaritiesTable,
   mysteryBoxRarityProbsTable,
   studentFigurinesTable,
+  rarityValues,
+  type Rarity,
 } from "@workspace/db";
-import { rarityValues, type Rarity } from "@workspace/db";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 
 const router = Router();
