@@ -1,8 +1,8 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, and, asc } from "drizzle-orm";
 import { db, classesTable, studentsTable, studentClassesTable } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/classes", async (_req, res): Promise<void> => {
   const classes = await db.select().from(classesTable).orderBy(asc(classesTable.sortOrder), asc(classesTable.createdAt));
