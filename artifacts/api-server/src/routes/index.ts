@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import healthRouter from "./health.js";
 import studentsRouter from "./students.js";
 import packsRouter from "./packs.js";
@@ -17,7 +17,7 @@ import cardTypesRouter from "./card-types.js";
 import backupsRouter from "./backups.js";
 import keepaliveRouter from "./keepalive.js";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.use(healthRouter);
 router.use(keepaliveRouter);
