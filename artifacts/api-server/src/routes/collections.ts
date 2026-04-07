@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, and, sql } from "drizzle-orm";
 import { db, studentsTable, cardsTable, collectionEntriesTable, packsTable, type Rarity } from "@workspace/db";
 import {
@@ -9,7 +9,7 @@ import {
   RemoveCollectionEntryParams,
 } from "@workspace/api-zod";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/collections/:studentId", async (req, res): Promise<void> => {
   const params = GetStudentCollectionParams.safeParse(req.params);
