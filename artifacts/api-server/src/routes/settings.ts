@@ -40,7 +40,7 @@ const COIN_DEFAULTS: Record<string, number> = {
   coin_value_legendary: 10,
 };
 
-router.get("/settings", async (_req, res): Promise<void> => {
+router.get("/settings", async (_req: any, res: any): Promise<void> => {
   try {
     const rows = await db.select().from(settingsTable);
     const map: Record<string, string | null> = {};
@@ -67,7 +67,7 @@ router.get("/settings", async (_req, res): Promise<void> => {
   }
 });
 
-router.put("/settings", async (req, res): Promise<void> => {
+router.put("/settings", async (req: any, res: any): Promise<void> => {
   const { key, value } = req.body as { key: SettingKey; value: string | null };
   if (!SETTING_KEYS.includes(key)) {
     res.status(400).json({ error: "Invalid setting key" });
@@ -87,7 +87,7 @@ router.put("/settings", async (req, res): Promise<void> => {
 });
 
 /* ── Teacher order ── */
-router.get("/teacher-order", async (_req, res): Promise<void> => {
+router.get("/teacher-order", async (_req: any, res: any): Promise<void> => {
   try {
     const rows = await db.select().from(settingsTable).where(eq(settingsTable.key, "teacher_order"));
     const order: string[] = rows[0]?.value ? JSON.parse(rows[0].value) : [];
@@ -97,7 +97,7 @@ router.get("/teacher-order", async (_req, res): Promise<void> => {
   }
 });
 
-router.post("/teacher-order", async (req, res): Promise<void> => {
+router.post("/teacher-order", async (req: any, res: any): Promise<void> => {
   const { order } = req.body as { order?: string[] };
   if (!Array.isArray(order)) { res.status(400).json({ error: "order array required" }); return; }
   try {
@@ -115,7 +115,7 @@ router.post("/teacher-order", async (req, res): Promise<void> => {
 });
 
 /* ── Teacher auth: verify password ── */
-router.post("/auth/teacher/verify", async (req, res): Promise<void> => {
+router.post("/auth/teacher/verify", async (req: any, res: any): Promise<void> => {
   const { password } = req.body as { password?: string };
   if (!password) { res.status(400).json({ ok: false, error: "Password required" }); return; }
   try {
@@ -127,7 +127,7 @@ router.post("/auth/teacher/verify", async (req, res): Promise<void> => {
 });
 
 /* ── Teacher auth: change password ── */
-router.post("/auth/teacher/change-password", async (req, res): Promise<void> => {
+router.post("/auth/teacher/change-password", async (req: any, res: any): Promise<void> => {
   const { currentPassword, newPassword } = req.body as { currentPassword?: string; newPassword?: string };
   if (!currentPassword || !newPassword) { res.status(400).json({ error: "Both passwords required" }); return; }
   if (newPassword.length < 4) { res.status(400).json({ error: "New password must be at least 4 characters" }); return; }
