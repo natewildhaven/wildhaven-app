@@ -1,8 +1,8 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq } from "drizzle-orm";
 import { db, cardRaritiesTable, DEFAULT_CARD_RARITIES } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 /** Convert any old-format effects object to the new { surface, border, glow, confetti } format */
 function migrateEffects(raw: unknown): { surface: string[]; border: string[]; glow: string[]; confetti: string[] } {
