@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, sql } from "drizzle-orm";
 import { db, cardsTable, type Rarity } from "@workspace/db";
 import {
@@ -10,7 +10,7 @@ import {
   ListCardsQueryParams,
 } from "@workspace/api-zod";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/cards", async (req, res): Promise<void> => {
   const query = ListCardsQueryParams.safeParse(req.query);
