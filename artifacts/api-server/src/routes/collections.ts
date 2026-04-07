@@ -3,7 +3,6 @@ import {
   db,
   eq,
   and,
-  sql,
   studentsTable,
   cardsTable,
   collectionEntriesTable,
@@ -42,27 +41,6 @@ router.get("/collections/:studentId", async (req: any, res: any): Promise<void> 
     res.status(404).json({ error: "Student not found" });
     return;
   }
-
-  let entriesQuery = db
-    .select({
-      id: collectionEntriesTable.id,
-      studentId: collectionEntriesTable.studentId,
-      cardId: collectionEntriesTable.cardId,
-      awardedAt: collectionEntriesTable.awardedAt,
-      card: {
-        id: cardsTable.id,
-        packId: cardsTable.packId,
-        cardNumber: cardsTable.cardNumber,
-        name: cardsTable.name,
-        imageUrl: cardsTable.imageUrl,
-        rarity: cardsTable.rarity,
-        createdAt: cardsTable.createdAt,
-      },
-    })
-    .from(collectionEntriesTable)
-    .innerJoin(cardsTable, eq(collectionEntriesTable.cardId, cardsTable.id))
-    .where(eq(collectionEntriesTable.studentId, params.data.studentId))
-    .$dynamic();
 
   const conditions = [eq(collectionEntriesTable.studentId, params.data.studentId)];
   if (query.data.packId) {
@@ -114,7 +92,7 @@ router.get("/collections/:studentId", async (req: any, res: any): Promise<void> 
   function alphaCardNum(n: string): string {
     return /^\d+$/.test(n) ? n.padStart(20, "0") : "zzz" + n;
   }
-  // Sort packs by min card number so progress is displayed in pack order
+
   const packsSorted = [...allPacks].sort((a, b) => {
     const numsA = allCards.filter(c => c.packId === a.id).map(c => alphaCardNum(c.cardNumber));
     const numsB = allCards.filter(c => c.packId === b.id).map(c => alphaCardNum(c.cardNumber));
@@ -168,7 +146,11 @@ router.post("/collections/:studentId/entries", async (req: any, res: any): Promi
     return;
   }
 
-  const [card] = await db.select().from(cardsTable).where(eq(cardsTable.id, parsed.data.cardId));
+  const [card] = await db
+    .select()
+    .from(cardsTable)
+    .where(eq(cardsTable.id, parsed.data.cardId));
+
   if (!card) {
     res.status(400).json({ error: "Card not found" });
     return;
