@@ -17,7 +17,7 @@ import {
 
 const router = Router();
 
-router.get("/cards", async (req, res): Promise<void> => {
+router.get("/cards", async (req: any, res: any): Promise<void> => {
   const query = ListCardsQueryParams.safeParse(req.query);
   if (!query.success) {
     res.status(400).json({ error: query.error.message });
@@ -40,7 +40,7 @@ router.get("/cards", async (req, res): Promise<void> => {
   res.json(cards);
 });
 
-router.post("/cards", async (req, res): Promise<void> => {
+router.post("/cards", async (req: any, res: any): Promise<void> => {
   const parsed = CreateCardBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });
@@ -54,7 +54,7 @@ router.post("/cards", async (req, res): Promise<void> => {
   res.status(201).json(card);
 });
 
-router.get("/cards/:cardId", async (req, res): Promise<void> => {
+router.get("/cards/:cardId", async (req: any, res: any): Promise<void> => {
   const params = GetCardParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -74,7 +74,7 @@ router.get("/cards/:cardId", async (req, res): Promise<void> => {
   res.json(card);
 });
 
-router.patch("/cards/:cardId", async (req, res): Promise<void> => {
+router.patch("/cards/:cardId", async (req: any, res: any): Promise<void> => {
   const params = UpdateCardParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -105,7 +105,7 @@ router.patch("/cards/:cardId", async (req, res): Promise<void> => {
   res.json(card);
 });
 
-router.delete("/cards/:cardId", async (req, res): Promise<void> => {
+router.delete("/cards/:cardId", async (req: any, res: any): Promise<void> => {
   const params = DeleteCardParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
