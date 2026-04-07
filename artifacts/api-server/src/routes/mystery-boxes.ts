@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, and } from "drizzle-orm";
 import {
   db,
@@ -11,7 +11,7 @@ import {
   studentsTable,
 } from "@workspace/db";
 
-const router: IRouter = Router();
+const router = Router();
 
 // ── Mystery Boxes ───────────────────────────────────────────────────────────
 
