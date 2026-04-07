@@ -8,14 +8,14 @@ import {
   collectionEntriesTable,
   packsTable,
   type Rarity,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 import {
   GetStudentCollectionParams,
   GetStudentCollectionQueryParams,
   AddCollectionEntryParams,
   AddCollectionEntryBody,
   RemoveCollectionEntryParams,
-} from "@workspace/api-zod";
+} from "../../../../lib/api-zod/src/index.js";
 
 const router = Router();
 
