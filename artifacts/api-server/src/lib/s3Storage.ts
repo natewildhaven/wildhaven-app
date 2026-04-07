@@ -10,7 +10,7 @@ export function s3IsConfigured(): boolean {
   );
 }
 
-function buildClient(): S3Client {
+function buildClient(): any {
   return new S3Client({
     region: process.env.S3_REGION ?? "auto",
     ...(process.env.S3_ENDPOINT ? { endpoint: process.env.S3_ENDPOINT } : {}),
