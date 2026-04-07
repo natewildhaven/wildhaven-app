@@ -1,0 +1,221 @@
+PackName,CardNumber,CardName,Rarity
+Origins Pack,1,Duck,Rare
+Origins Pack,2,Arctic Fox,Rare
+Origins Pack,3,Badger,Common
+Origins Pack,4,Eagle,Rare
+Origins Pack,5,Rabbit,Common
+Origins Pack,6,Hummingbird,Rare
+Origins Pack,7,Squirrel,Common
+Origins Pack,8,Mouse,Common
+Origins Pack,9,Deer,Common
+Origins Pack,10,Hedgehog,Common
+Origins Pack,11,Fox,Common
+Origins Pack,12,Owl,Rare
+Origins Pack,13,Newt,Rare
+Origins Pack,14,Butterfly,Rare
+Origins Pack,15,Robin,Common
+Origins Pack,16,Frog,Common
+Origins Pack,17,Sheep,Common
+Origins Pack,18,Beaver,Rare
+Origins Pack,19,Boar,Common
+Origins Pack,20,Skunk,Rare
+Origins Pack,21,Bee,Common
+Origins Pack,22,Bear,Common
+Origins Pack,23,Raccoon,Common
+Origins Pack,24,Otter,Rare
+Origins Pack,25,Snail,Common
+Origins Pack,26,Finnick,Epic
+Origins Pack,27,Quentin,Epic
+Origins Pack,28,Alexandre,Epic
+Origins Pack,29,Luna,Epic
+Origins Pack,30,The Golden Seed,Legendary
+Twilight Pack,31,Duck,Rare
+Twilight Pack,32,Arctic Fox,Rare
+Twilight Pack,33,Cicada,Common
+Twilight Pack,34,Sugar Glider,Rare
+Twilight Pack,35,Raccoon,Common
+Twilight Pack,36,Mink,Common
+Twilight Pack,37,Black Bear,Rare
+Twilight Pack,38,Porcupine,Common
+Twilight Pack,39,Skunk,Common
+Twilight Pack,40,Fireflies,Common
+Twilight Pack,41,Swan,Rare
+Twilight Pack,42,Badger,Common
+Twilight Pack,43,Otter,Common
+Twilight Pack,44,Bat,Common
+Twilight Pack,45,Hedgehog,Common
+Twilight Pack,46,Tarantula,Rare
+Twilight Pack,47,Rat,Common
+Twilight Pack,48,Wombat,Common
+Twilight Pack,49,Owl,Rare
+Twilight Pack,50,Stag,Rare
+Twilight Pack,51,Nightingale,Common
+Twilight Pack,52,Python,Rare
+Twilight Pack,53,Gerbil,Common
+Twilight Pack,54,Beaver,Common
+Twilight Pack,55,Spring,Epic
+Twilight Pack,56,Summer,Epic
+Twilight Pack,57,Autumn,Epic
+Twilight Pack,58,Winter,Epic
+Twilight Pack,59,Digby,Epic
+Twilight Pack,60,The Golden Sapling,Legendary
+Hats Pack,61,Duck,Common
+Hats Pack,62,Arctic Fox,Common
+Hats Pack,63,Raccoon,Common
+Hats Pack,64,Rat,Common
+Hats Pack,65,Chameleon,Rare
+Hats Pack,66,Kingfisher,Rare
+Hats Pack,67,Hedgehog,Common
+Hats Pack,68,Ibex,Common
+Hats Pack,69,Red Panda,Rare
+Hats Pack,70,Grey Squirrel,Common
+Hats Pack,71,Doe,Rare
+Hats Pack,72,Badger,Common
+Hats Pack,73,Skunk,Common
+Hats Pack,74,Stoat,Rare
+Hats Pack,75,Tortoise,Rare
+Hats Pack,76,Snail,Rare
+Hats Pack,77,Blackbird,Common
+Hats Pack,78,Tawny Owl,Common
+Hats Pack,79,Pine Marten,Rare
+Hats Pack,80,Opossum,Common
+Hats Pack,81,Swan,Common
+Hats Pack,82,Grey Wolf,Common
+Hats Pack,83,Fire Salamander,Rare
+Hats Pack,84,Beaver,Common
+Hats Pack,85,Wildcat,Rare
+Hats Pack,86,Hazel,Epic
+Hats Pack,87,Charlie,Epic
+Hats Pack,88,Kevin,Epic
+Hats Pack,89,Diana,Epic
+Hats Pack,90,Chester,Mythic
+Mythic: Series 1,91,Football,Mythic
+Mythic: Series 1,92,Mallowrilla,Mythic
+Mythic: Series 1,93,T-Rex,Mythic
+Mythic: Series 1,94,Unicorns,Mythic
+Mythic: Series 1,95,Nemo,Mythic
+Mythic: Series 1,96,Jasper,Mythic
+Mythic: Series 1,97,Mr P,Mythic
+Mythic: Series 1,98,Blackbird,Mythic
+Mythic: Series 1,99,Warlock,Mythic
+Mythic: Series 1,100,Paradise Island,Mythic
+Safari Pack,101,African Black Duck,Rare
+Safari Pack,102,Fennec Fox,Rare
+Safari Pack,103,Baboon,Common
+Safari Pack,104,Vulture,Rare
+Safari Pack,105,Warthog,Common
+Safari Pack,106,Cheetah,Rare
+Safari Pack,107,Giraffe,Rare
+Safari Pack,108,Zebra,Common
+Safari Pack,109,Crocodile,Common
+Safari Pack,110,Mandrill,Rare
+Safari Pack,111,Dung Beetle,Common
+Safari Pack,112,Hippopotamus,Common
+Safari Pack,113,Okapi,Common
+Safari Pack,114,Hyena,Rare
+Safari Pack,115,Impala,Common
+Safari Pack,116,Antelope,Common
+Safari Pack,117,Heron,Rare
+Safari Pack,118,Ostrich,Common
+Safari Pack,119,Flamingo,Rare
+Safari Pack,120,Honey Badger,Common
+Safari Pack,121,Black Mamba,Common
+Safari Pack,122,Bearded Dragon,Rare
+Safari Pack,123,Meerkat,Rare
+Safari Pack,124,Wildebeest,Common
+Safari Pack,125,Buffalo ,Epic
+Safari Pack,126,Leopard,Epic
+Safari Pack,127,Rhino,Epic
+Safari Pack,128,Elephant,Epic
+Safari Pack,129,Lion,Epic
+Safari Pack,130,Tree of Life,Legendary
+Marine Pack,131,Seahorse,Common
+Marine Pack,132,Blue Whale,Common
+Marine Pack,133,Barracuda,Common
+Marine Pack,134,Sea Lion,Common
+Marine Pack,135,Clownfish,Common
+Marine Pack,136,Sea Otter,Common
+Marine Pack,137,Blue Tang,Rare
+Marine Pack,138,Salmon,Common
+Marine Pack,139,Beluga Whale,Rare
+Marine Pack,140,Crab,Common
+Marine Pack,141,Catfish,Common
+Marine Pack,142,Sea Turtle,Rare
+Marine Pack,143,Orca,Rare
+Marine Pack,144,Manatee,Common
+Marine Pack,145,Dolphin,Common
+Marine Pack,146,Tuna,Common
+Marine Pack,147,Sea Snake,Rare
+Marine Pack,148,Squid,Rare
+Marine Pack,149,Walrus,Common
+Marine Pack,150,Prawn,Rare
+Marine Pack,151,Seal,Common
+Marine Pack,152,Oyster,Rare
+Marine Pack,153,Lobster,Rare
+Marine Pack,154,Starfish,Common
+Marine Pack,155,Pufferfish,Rare
+Marine Pack,156,Shark,Epic
+Marine Pack,157,Octopus,Epic
+Marine Pack,158,Manta Ray,Epic
+Marine Pack,159,Jellyfish,Epic
+Marine Pack,160,Coral Reef,Legendary
+Mythic: Series 2,161,Storm Dragon,Mythic
+Mythic: Series 2,162,Pegasus,Mythic
+Mythic: Series 2,163,Orca,Mythic
+Mythic: Series 2,164,Cat,Mythic
+Mythic: Series 2,165,Pixie,Mythic
+Mythic: Series 2,166,Titan,Mythic
+Mythic: Series 2,167,Miracle,Mythic
+Mythic: Series 2,168,Phoenix,Mythic
+Mythic: Series 2,169,Lilo,Mythic
+Mythic: Series 2,170,Gerald,Mythic
+Mythic: Series 2,171,Squeak and Gerald,Mythic
+Mythic: Series 2,172,Potato,Mythic
+Mythic: Series 2,173,Llando,Mythic
+Mythic: Series 2,174,Connor,Mythic
+Mythic: Series 2,175,Hedgehog,Mythic
+Mythic: Series 2,176,Cassowary,Mythic
+Mythic: Series 2,177,Quokka,Mythic
+Mythic: Series 2,178,Gesundheit,Mythic
+Mythic: Series 2,179,Prince Quack,Mythic
+Mythic: Series 2,180,Golden Woods,Mythic
+Winter Pack,181,Duck,Rare
+Winter Pack,182,Arctic Fox,Rare
+Winter Pack,183,Deer,Common
+Winter Pack,184,Badger,Common
+Winter Pack,185,Rabbit,Common
+Winter Pack,186,Red Squirrel,Common
+Winter Pack,187,Hedgehog,Common
+Winter Pack,188,Owl,Rare
+Winter Pack,189,Woodpecker,Rare
+Winter Pack,190,Otter,Common
+Winter Pack,191,Pheasant,Common
+Winter Pack,192,Lynx,Rare
+Winter Pack,193,Bear,Common
+Winter Pack,194,Weasel,Rare
+Winter Pack,195,Dormouse,Common
+Winter Pack,196,Bluetit,Common
+Winter Pack,197,Grey Wolf,Rare
+Winter Pack,198,Beavers,Epic
+Winter Pack,199,Swans,Epic
+Winter Pack,200,Winter,Legendary
+Spring Pack,201,Duck,Rare
+Spring Pack,202,Arctic Fox,Rare
+Spring Pack,203,Deer,Common
+Spring Pack,204,Badger,Common
+Spring Pack,205,Rabbit,Common
+Spring Pack,206,Red Squirrel,Common
+Spring Pack,207,Hedgehog,Common
+Spring Pack,208,Owl,Rare
+Spring Pack,209,Woodpecker,Rare
+Spring Pack,210,Otter,Common
+Spring Pack,211,Pheasant,Common
+Spring Pack,212,Lynx,Rare
+Spring Pack,213,Bear,Common
+Spring Pack,214,Weasel,Rare
+Spring Pack,215,Dormouse,Common
+Spring Pack,216,Bluetit,Common
+Spring Pack,217,Grey Wolf,Rare
+Spring Pack,218,Beavers,Epic
+Spring Pack,219,Swans,Epic
+Spring Pack,220,Winter,Legendary

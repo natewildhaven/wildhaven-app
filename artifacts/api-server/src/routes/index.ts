@@ -1,0 +1,40 @@
+import { Router, type IRouter } from "express";
+import healthRouter from "./health";
+import studentsRouter from "./students";
+import packsRouter from "./packs";
+import cardsRouter from "./cards";
+import collectionsRouter from "./collections";
+import uploadsRouter from "./uploads";
+import adminRouter from "./admin";
+import classesRouter from "./classes";
+import settingsRouter from "./settings";
+import mysteryBoxesRouter from "./mystery-boxes";
+import figurineRaritiesRouter from "./figurine-rarities";
+import shopRouter from "./shop";
+import achievementsRouter from "./achievements";
+import cardRaritiesRouter from "./card-rarities";
+import cardTypesRouter from "./card-types";
+import backupsRouter from "./backups";
+import keepaliveRouter from "./keepalive";
+
+const router: IRouter = Router();
+
+router.use(healthRouter);
+router.use(keepaliveRouter);
+router.use(studentsRouter);
+router.use(packsRouter);
+router.use(cardsRouter);
+router.use(collectionsRouter);
+router.use(uploadsRouter);
+router.use(adminRouter);
+router.use(classesRouter);
+router.use(settingsRouter);
+router.use(mysteryBoxesRouter);
+router.use(figurineRaritiesRouter);
+router.use(shopRouter);
+router.use(achievementsRouter);
+router.use(cardRaritiesRouter);
+router.use(cardTypesRouter);
+router.use(backupsRouter);
+
+export default router;
