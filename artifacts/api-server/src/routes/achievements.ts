@@ -83,13 +83,13 @@ async function evaluateAchievement(
 
 // ── CRUD routes ───────────────────────────────────────────────────────────────
 
-router.get("/achievements", async (_req, res): Promise<void> => {
+router.get("/achievements", async (_req: any, res: any): Promise<void> => {
   const rows = await db.select().from(achievementsTable)
     .orderBy(asc(achievementsTable.displayOrder), asc(achievementsTable.id));
   res.json(rows);
 });
 
-router.post("/achievements", async (req, res): Promise<void> => {
+router.post("/achievements", async (req: any, res: any): Promise<void> => {
   const { name, description, imageUrl, rules } = req.body;
   if (!name || typeof name !== "string") {
     res.status(400).json({ error: "name is required" });
@@ -99,7 +99,7 @@ router.post("/achievements", async (req, res): Promise<void> => {
   res.status(201).json(row);
 });
 
-router.put("/achievements/:id", async (req, res): Promise<void> => {
+router.put("/achievements/:id", async (req: any, res: any): Promise<void> => {
   const id = Number(req.params["id"]);
   if (!id) { res.status(400).json({ error: "invalid id" }); return; }
   const { name, description, imageUrl, rules, displayOrder } = req.body;
@@ -114,7 +114,7 @@ router.put("/achievements/:id", async (req, res): Promise<void> => {
   res.json(row);
 });
 
-router.post("/achievements/reorder", async (req, res): Promise<void> => {
+router.post("/achievements/reorder", async (req: any, res: any): Promise<void> => {
   const items: { id: number; displayOrder: number }[] = req.body;
   if (!Array.isArray(items)) { res.status(400).json({ error: "expected array" }); return; }
   await Promise.all(
@@ -125,7 +125,7 @@ router.post("/achievements/reorder", async (req, res): Promise<void> => {
   res.json({ ok: true });
 });
 
-router.delete("/achievements/:id", async (req, res): Promise<void> => {
+router.delete("/achievements/:id", async (req: any, res: any): Promise<void> => {
   const id = Number(req.params["id"]);
   if (!id) { res.status(400).json({ error: "invalid id" }); return; }
   await db.delete(achievementsTable).where(eq(achievementsTable.id, id));
@@ -135,7 +135,7 @@ router.delete("/achievements/:id", async (req, res): Promise<void> => {
 // ── Student achievement routes ────────────────────────────────────────────────
 
 // Get earned achievements for a student
-router.get("/students/:studentId/achievements", async (req, res): Promise<void> => {
+router.get("/students/:studentId/achievements", async (req: any, res: any): Promise<void> => {
   const studentId = Number(req.params["studentId"]);
   if (!studentId) { res.status(400).json({ error: "invalid studentId" }); return; }
   const earned = await db
@@ -146,7 +146,7 @@ router.get("/students/:studentId/achievements", async (req, res): Promise<void> 
 });
 
 // Check + auto-award achievements for a student — call this after pack/box open
-router.post("/students/:studentId/achievements/check", async (req, res): Promise<void> => {
+router.post("/students/:studentId/achievements/check", async (req: any, res: any): Promise<void> => {
   const studentId = Number(req.params["studentId"]);
   if (!studentId) { res.status(400).json({ error: "invalid studentId" }); return; }
 
