@@ -392,7 +392,7 @@ export const RemoveCollectionEntryParams = zod.object({
  * @summary Upload a card image
  */
 export const UploadCardImageBody = zod.object({
-  file: zod.instanceof(File).optional(),
+  file: zod.any().optional(),
 });
 
 export const UploadCardImageResponse = zod.object({

@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { eq, and, sql } from "drizzle-orm";
-import { db, studentsTable, cardsTable, collectionEntriesTable, packsTable } from "@workspace/db";
+import { db, studentsTable, cardsTable, collectionEntriesTable, packsTable, type Rarity } from "@workspace/db";
 import {
   GetStudentCollectionParams,
   GetStudentCollectionQueryParams,
@@ -60,7 +60,7 @@ router.get("/collections/:studentId", async (req, res): Promise<void> => {
     conditions.push(eq(cardsTable.packId, query.data.packId));
   }
   if (query.data.rarity) {
-    conditions.push(eq(cardsTable.rarity, query.data.rarity));
+    conditions.push(eq(cardsTable.rarity, query.data.rarity as Rarity));
   }
 
   const entries = await db

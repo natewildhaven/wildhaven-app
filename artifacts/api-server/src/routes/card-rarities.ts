@@ -43,7 +43,7 @@ export async function ensureCardRarityDefaults() {
   for (const row of rows) {
     const updates: Record<string, unknown> = {};
     const migrated = migrateEffects(row.effects);
-    const wasOldFormat = !Array.isArray((row.effects as Record<string, unknown>)?.surface);
+    const wasOldFormat = !Array.isArray((row.effects as unknown as Record<string, unknown>)?.surface);
     if (wasOldFormat) updates.effects = migrated;
     // Fix Common colour from gray to green
     if (row.name === "Common" && (row.color === "#6b7280" || row.color === "#4b5563")) {

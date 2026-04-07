@@ -7,5 +7,5 @@
  */
 
 export type UploadCardImageBody = {
-  file?: Blob;
+  file?: unknown;
 };

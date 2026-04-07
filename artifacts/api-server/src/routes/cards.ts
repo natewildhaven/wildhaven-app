@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { eq, sql } from "drizzle-orm";
-import { db, cardsTable } from "@workspace/db";
+import { db, cardsTable, type Rarity } from "@workspace/db";
 import {
   CreateCardBody,
   UpdateCardBody,
@@ -42,7 +42,10 @@ router.post("/cards", async (req, res): Promise<void> => {
     return;
   }
 
-  const [card] = await db.insert(cardsTable).values(parsed.data).returning();
+  const [card] = await db.insert(cardsTable).values({
+    ...parsed.data,
+    rarity: parsed.data.rarity as Rarity,
+  }).returning();
   res.status(201).json(card);
 });
 
@@ -79,9 +82,13 @@ router.patch("/cards/:cardId", async (req, res): Promise<void> => {
     return;
   }
 
+  const { rarity: rawRarity, ...restData } = parsed.data;
   const [card] = await db
     .update(cardsTable)
-    .set(parsed.data)
+    .set({
+      ...restData,
+      ...(rawRarity !== undefined && { rarity: rawRarity as Rarity }),
+    })
     .where(eq(cardsTable.id, params.data.cardId))
     .returning();
 
