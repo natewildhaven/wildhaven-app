@@ -1,6 +1,9 @@
 import { Router } from "express";
-import { eq } from "drizzle-orm";
-import { db, figurineRaritiesTable } from "@workspace/db";
+import {
+  db,
+  eq,
+  figurineRaritiesTable,
+} from "@workspace/db";
 
 const router = Router();
 
