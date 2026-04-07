@@ -1,0 +1,906 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Wildhaven Collectible Cards API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: students
+    description: Student management
+  - name: packs
+    description: Card pack management
+  - name: cards
+    description: Card management
+  - name: collections
+    description: Student card collections
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /students:
+    get:
+      operationId: listStudents
+      tags: [students]
+      summary: List all students
+      responses:
+        "200":
+          description: List of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Student"
+    post:
+      operationId: createStudent
+      tags: [students]
+      summary: Create a student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateStudentBody"
+      responses:
+        "201":
+          description: Created student
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /students/{studentId}:
+    get:
+      operationId: getStudent
+      tags: [students]
+      summary: Get a student by ID
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Student
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateStudent
+      tags: [students]
+      summary: Update a student
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStudentBody"
+      responses:
+        "200":
+          description: Updated student
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteStudent
+      tags: [students]
+      summary: Delete a student
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /students/verify-pin:
+    post:
+      operationId: verifyStudentPin
+      tags: [students]
+      summary: Verify a student PIN
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyPinBody"
+      responses:
+        "200":
+          description: Student info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+        "401":
+          description: Invalid PIN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /packs:
+    get:
+      operationId: listPacks
+      tags: [packs]
+      summary: List all card packs
+      responses:
+        "200":
+          description: List of packs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pack"
+    post:
+      operationId: createPack
+      tags: [packs]
+      summary: Create a card pack
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePackBody"
+      responses:
+        "201":
+          description: Created pack
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pack"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /packs/{packId}:
+    get:
+      operationId: getPack
+      tags: [packs]
+      summary: Get a pack by ID with its cards
+      parameters:
+        - name: packId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Pack with cards
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PackWithCards"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updatePack
+      tags: [packs]
+      summary: Update a pack
+      parameters:
+        - name: packId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePackBody"
+      responses:
+        "200":
+          description: Updated pack
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pack"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deletePack
+      tags: [packs]
+      summary: Delete a pack
+      parameters:
+        - name: packId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /packs/{packId}/open:
+    post:
+      operationId: openPack
+      tags: [packs]
+      summary: Open a pack for a student (awards 3 cards)
+      parameters:
+        - name: packId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OpenPackBody"
+      responses:
+        "200":
+          description: Cards awarded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenPackResult"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /cards:
+    get:
+      operationId: listCards
+      tags: [cards]
+      summary: List cards, optionally filtered by pack
+      parameters:
+        - name: packId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Card"
+    post:
+      operationId: createCard
+      tags: [cards]
+      summary: Create a card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCardBody"
+      responses:
+        "201":
+          description: Created card
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /cards/{cardId}:
+    get:
+      operationId: getCard
+      tags: [cards]
+      summary: Get a card by ID
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Card
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateCard
+      tags: [cards]
+      summary: Update a card
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCardBody"
+      responses:
+        "200":
+          description: Updated card
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteCard
+      tags: [cards]
+      summary: Delete a card
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /collections/{studentId}:
+    get:
+      operationId: getStudentCollection
+      tags: [collections]
+      summary: Get a student's card collection
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: packId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: rarity
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Student collection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudentCollection"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /collections/{studentId}/entries:
+    post:
+      operationId: addCollectionEntry
+      tags: [collections]
+      summary: Manually add a card to a student's collection
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddCollectionEntryBody"
+      responses:
+        "201":
+          description: Added entry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionEntry"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /collections/{studentId}/entries/{entryId}:
+    delete:
+      operationId: removeCollectionEntry
+      tags: [collections]
+      summary: Remove a specific collection entry
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: entryId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Removed
+
+  /uploads/card-image:
+    post:
+      operationId: uploadCardImage
+      tags: [cards]
+      summary: Upload a card image
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Uploaded image URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadImageResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        pin:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - pin
+        - createdAt
+
+    CreateStudentBody:
+      type: object
+      properties:
+        name:
+          type: string
+        pin:
+          type: string
+          description: 4-digit PIN
+      required:
+        - name
+        - pin
+
+    UpdateStudentBody:
+      type: object
+      properties:
+        name:
+          type: string
+        pin:
+          type: string
+
+    VerifyPinBody:
+      type: object
+      properties:
+        pin:
+          type: string
+      required:
+        - pin
+
+    Pack:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: ["string", "null"]
+        coverImageUrl:
+          type: ["string", "null"]
+        cardBackImageUrl:
+          type: ["string", "null"]
+        commonChance:
+          type: integer
+        rareChance:
+          type: integer
+        epicChance:
+          type: integer
+        mythicChance:
+          type: integer
+        legendaryChance:
+          type: integer
+        color:
+          type: ["string", "null"]
+        cardCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - description
+        - coverImageUrl
+        - cardBackImageUrl
+        - commonChance
+        - rareChance
+        - epicChance
+        - mythicChance
+        - legendaryChance
+        - color
+        - cardCount
+        - createdAt
+
+    PackWithCards:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: ["string", "null"]
+        coverImageUrl:
+          type: ["string", "null"]
+        cardBackImageUrl:
+          type: ["string", "null"]
+        commonChance:
+          type: integer
+        rareChance:
+          type: integer
+        epicChance:
+          type: integer
+        mythicChance:
+          type: integer
+        legendaryChance:
+          type: integer
+        color:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+        cards:
+          type: array
+          items:
+            $ref: "#/components/schemas/Card"
+      required:
+        - id
+        - name
+        - description
+        - coverImageUrl
+        - cardBackImageUrl
+        - commonChance
+        - rareChance
+        - epicChance
+        - mythicChance
+        - legendaryChance
+        - color
+        - createdAt
+        - cards
+
+    CreatePackBody:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: ["string", "null"]
+        coverImageUrl:
+          type: ["string", "null"]
+        cardBackImageUrl:
+          type: ["string", "null"]
+        commonChance:
+          type: integer
+        rareChance:
+          type: integer
+        epicChance:
+          type: integer
+        mythicChance:
+          type: integer
+        legendaryChance:
+          type: integer
+      required:
+        - name
+
+    UpdatePackBody:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: ["string", "null"]
+        coverImageUrl:
+          type: ["string", "null"]
+        cardBackImageUrl:
+          type: ["string", "null"]
+        commonChance:
+          type: integer
+        rareChance:
+          type: integer
+        epicChance:
+          type: integer
+        mythicChance:
+          type: integer
+        legendaryChance:
+          type: integer
+        color:
+          type: ["string", "null"]
+
+    Card:
+      type: object
+      properties:
+        id:
+          type: integer
+        packId:
+          type: integer
+        cardNumber:
+          type: integer
+        name:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+        rarity:
+          type: string
+          enum: [Common, Rare, Epic, Mythic, Legendary]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - packId
+        - cardNumber
+        - name
+        - imageUrl
+        - rarity
+        - createdAt
+
+    CreateCardBody:
+      type: object
+      properties:
+        packId:
+          type: integer
+        cardNumber:
+          type: integer
+        name:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+        rarity:
+          type: string
+          enum: [Common, Rare, Epic, Mythic, Legendary]
+      required:
+        - packId
+        - cardNumber
+        - name
+        - rarity
+
+    UpdateCardBody:
+      type: object
+      properties:
+        packId:
+          type: integer
+        cardNumber:
+          type: integer
+        name:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+        rarity:
+          type: string
+          enum: [Common, Rare, Epic, Mythic, Legendary]
+
+    CollectionEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+        studentId:
+          type: integer
+        cardId:
+          type: integer
+        awardedAt:
+          type: string
+          format: date-time
+        card:
+          $ref: "#/components/schemas/Card"
+      required:
+        - id
+        - studentId
+        - cardId
+        - awardedAt
+        - card
+
+    StudentCollection:
+      type: object
+      properties:
+        student:
+          $ref: "#/components/schemas/Student"
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/CollectionEntry"
+        totalCards:
+          type: integer
+        uniqueCards:
+          type: integer
+        epicCount:
+          type: integer
+        mythicCount:
+          type: integer
+        legendaryCount:
+          type: integer
+        packProgress:
+          type: array
+          items:
+            $ref: "#/components/schemas/PackProgress"
+      required:
+        - student
+        - entries
+        - totalCards
+        - uniqueCards
+        - epicCount
+        - mythicCount
+        - legendaryCount
+        - packProgress
+
+    PackProgress:
+      type: object
+      properties:
+        packId:
+          type: integer
+        packName:
+          type: string
+        packColor:
+          type: string
+        totalCards:
+          type: integer
+        uniqueOwned:
+          type: integer
+      required:
+        - packId
+        - packName
+        - packColor
+        - totalCards
+        - uniqueOwned
+
+    OpenPackBody:
+      type: object
+      properties:
+        studentId:
+          type: integer
+      required:
+        - studentId
+
+    OpenPackResult:
+      type: object
+      properties:
+        cards:
+          type: array
+          items:
+            $ref: "#/components/schemas/Card"
+      required:
+        - cards
+
+    AddCollectionEntryBody:
+      type: object
+      properties:
+        cardId:
+          type: integer
+      required:
+        - cardId
+
+    UploadImageResponse:
+      type: object
+      properties:
+        url:
+          type: string
+      required:
+        - url
