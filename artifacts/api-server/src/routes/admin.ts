@@ -203,16 +203,16 @@ router.post("/admin/dedup-collections", async (_req: any, res: any): Promise<voi
   const studentsAffected = new Set<number>();
 
   for (const [, entries] of groups) {
-    if (entries.length <= 1) continue;
-    const [, ...dupes] = entries;
-    for (const dup of dupes) {
-      duplicateIds.push(dup.id);
-      const rarity = cardRarityMap.get(dup.cardId) ?? "common";
-      const coins = coinValues[rarity] ?? 0;
-      coinsByStudent.set(dup.studentId, (coinsByStudent.get(dup.studentId) ?? 0) + coins);
-      studentsAffected.add(dup.studentId);
-    }
+  if (entries.length <= 1) continue;
+  const [, ...dupes] = entries;
+  for (const dup of dupes) {
+    duplicateIds.push(dup.id);
+    const rarity = (cardRarityMap.get(dup.cardId) ?? "Common") as keyof typeof coinValues;
+    const coins = coinValues[rarity] ?? 0;
+    coinsByStudent.set(dup.studentId, (coinsByStudent.get(dup.studentId) ?? 0) + coins);
+    studentsAffected.add(dup.studentId);
   }
+}
 
   if (duplicateIds.length > 0) {
     await db.delete(collectionEntriesTable).where(inArray(collectionEntriesTable.id, duplicateIds));
