@@ -11,7 +11,7 @@ import {
   collectionEntriesTable,
   rarityValues,
   type Rarity,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 import {
   CreatePackBody,
@@ -21,7 +21,7 @@ import {
   DeletePackParams,
   OpenPackParams,
   OpenPackBody,
-} from "@workspace/api-zod";
+} from "../../../../lib/api-zod/src/index.js";
 
 const router = Router();
 
