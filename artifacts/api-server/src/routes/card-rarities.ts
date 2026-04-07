@@ -4,7 +4,7 @@ import {
   eq,
   cardRaritiesTable,
   DEFAULT_CARD_RARITIES,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 
 const router = Router();
 
