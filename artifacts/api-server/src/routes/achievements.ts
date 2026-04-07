@@ -9,7 +9,7 @@ import {
   studentAchievementsTable,
   collectionEntriesTable,
   cardsTable,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 
 const router = Router();
 
