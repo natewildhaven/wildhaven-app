@@ -13,7 +13,7 @@ import {
   studentFigurinesTable,
   rarityValues,
   type Rarity,
-} from "@workspace/db";
+} from "../../../../lib/db/src/index.js";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 import {
   CreateStudentBody,
@@ -22,7 +22,7 @@ import {
   UpdateStudentParams,
   DeleteStudentParams,
   VerifyStudentPinBody,
-} from "@workspace/api-zod";
+} from "../../../../lib/api-zod/src/index.js";
 
 const router = Router();
 
