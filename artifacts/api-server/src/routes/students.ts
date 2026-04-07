@@ -1,8 +1,20 @@
 import { Router } from "express";
-import { eq, sql, and } from "drizzle-orm";
-import { db, studentsTable, studentClassesTable, collectionEntriesTable, packBankTable, packsTable, cardsTable, studentFigurinesTable } from "@workspace/db";
+import {
+  db,
+  eq,
+  sql,
+  and,
+  studentsTable,
+  studentClassesTable,
+  collectionEntriesTable,
+  packBankTable,
+  packsTable,
+  cardsTable,
+  studentFigurinesTable,
+  rarityValues,
+  type Rarity,
+} from "@workspace/db";
 import { getCardRarityCoinValues } from "./card-rarities.js";
-import { rarityValues, type Rarity } from "@workspace/db";
 import {
   CreateStudentBody,
   UpdateStudentBody,
