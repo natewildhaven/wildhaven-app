@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { eq, sql, and } from "drizzle-orm";
 import { db, studentsTable, studentClassesTable, collectionEntriesTable, packBankTable, packsTable, cardsTable, studentFigurinesTable } from "@workspace/db";
 import { getCardRarityCoinValues } from "./card-rarities.js";
@@ -12,7 +12,7 @@ import {
   VerifyStudentPinBody,
 } from "@workspace/api-zod";
 
-const router: IRouter = Router();
+const router = Router();
 
 async function getClassIdsMap(studentIds: number[]): Promise<Map<number, number[]>> {
   if (studentIds.length === 0) return new Map();
