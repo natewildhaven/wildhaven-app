@@ -1,6 +1,6 @@
 import { pgTable, serial, integer, timestamp } from "drizzle-orm/pg-core";
-import { studentsTable } from "./students";
-import { packsTable } from "./packs";
+import { studentsTable } from "./students.js";
+import { packsTable } from "./packs.js";
 
 export const packBankTable = pgTable("pack_bank", {
   id: serial("id").primaryKey(),
