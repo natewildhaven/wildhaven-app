@@ -20,7 +20,7 @@ import { getCardRarityCoinValues } from "./card-rarities.js";
 
 const router = Router();
 
-router.get("/admin/overview", async (_req, res): Promise<void> => {
+router.get("/admin/overview", async (_req: any, res: any): Promise<void> => {
   const [students, allCards, allPacks, allEntries, allStudentClasses] = await Promise.all([
     db.select().from(studentsTable).orderBy(studentsTable.name),
     db.select().from(cardsTable).orderBy(
@@ -67,7 +67,7 @@ router.get("/admin/overview", async (_req, res): Promise<void> => {
   res.json({ students: studentsWithClasses, cards: cardsWithPack, matrix });
 });
 
-router.put("/admin/cell", async (req, res): Promise<void> => {
+router.put("/admin/cell", async (req: any, res: any): Promise<void> => {
   const { studentId, cardId, count } = req.body as { studentId: number; cardId: number; count: number };
   if (!studentId || !cardId || typeof count !== "number" || count < 0) {
     res.status(400).json({ error: "Invalid body: studentId, cardId, count required" });
@@ -94,7 +94,7 @@ router.put("/admin/cell", async (req, res): Promise<void> => {
   res.json({ studentId, cardId, count });
 });
 
-router.post("/admin/batch-update", async (req, res): Promise<void> => {
+router.post("/admin/batch-update", async (req: any, res: any): Promise<void> => {
   const { updates } = req.body as { updates: { studentId: number; cardId: number; count: number }[] };
   if (!Array.isArray(updates)) {
     res.status(400).json({ error: "updates must be an array" });
@@ -126,7 +126,7 @@ router.post("/admin/batch-update", async (req, res): Promise<void> => {
 // Returns distinct card counts per pack per student.
 // Query: ?studentIds=1,2,3
 // Response: { "1": { "2": 15, "3": 8 }, ... }  (studentId → packId → unique card count)
-router.get("/admin/student-pack-counts", async (req, res): Promise<void> => {
+router.get("/admin/student-pack-counts", async (req: any, res: any): Promise<void> => {
   const raw = (req.query.studentIds as string) || "";
   const studentIds = raw.split(",").map(Number).filter(Boolean);
   if (studentIds.length === 0) {
@@ -153,7 +153,7 @@ router.get("/admin/student-pack-counts", async (req, res): Promise<void> => {
   res.json(result);
 });
 
-router.get("/admin/dedup-status", async (_req, res): Promise<void> => {
+router.get("/admin/dedup-status", async (_req: any, res: any): Promise<void> => {
   const [cleanedRow] = await db.select().from(settingsTable).where(eq(settingsTable.key, "duplicates_cleaned_at"));
 
   const counts = await db
@@ -173,7 +173,7 @@ router.get("/admin/dedup-status", async (_req, res): Promise<void> => {
   });
 });
 
-router.post("/admin/dedup-collections", async (_req, res): Promise<void> => {
+router.post("/admin/dedup-collections", async (_req: any, res: any): Promise<void> => {
   const coinValues = await getCardRarityCoinValues();
 
   const [allEntries, allCardRows] = await Promise.all([
@@ -246,7 +246,7 @@ router.post("/admin/dedup-collections", async (_req, res): Promise<void> => {
 
 // ── Collectibles (figurines) overview ──────────────────────────────────────
 
-router.get("/admin/figurines-overview", async (_req, res): Promise<void> => {
+router.get("/admin/figurines-overview", async (_req: any, res: any): Promise<void> => {
   const [students, allStudentClasses, allFigurines, allBoxes, allOwned] = await Promise.all([
     db.select().from(studentsTable).orderBy(studentsTable.name),
     db.select().from(studentClassesTable),
@@ -288,7 +288,7 @@ router.get("/admin/figurines-overview", async (_req, res): Promise<void> => {
   });
 });
 
-router.put("/admin/figurine-cell", async (req, res): Promise<void> => {
+router.put("/admin/figurine-cell", async (req: any, res: any): Promise<void> => {
   const { studentId, figurineId, owned } = req.body as { studentId: number; figurineId: number; owned: boolean };
   if (!studentId || !figurineId || typeof owned !== "boolean") {
     res.status(400).json({ error: "studentId, figurineId, owned required" });
