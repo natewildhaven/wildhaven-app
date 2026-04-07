@@ -88,7 +88,7 @@ export default function TeacherPackDetail() {
   const coverInputRef = useRef<HTMLInputElement>(null);
   const backInputRef = useRef<HTMLInputElement>(null);
 
-  const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+  const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
   useEffect(() => {
     if (pack) {

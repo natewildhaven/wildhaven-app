@@ -31,7 +31,7 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn, metallicFilterStyle } from "@/lib/utils";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 
 type GridItem =

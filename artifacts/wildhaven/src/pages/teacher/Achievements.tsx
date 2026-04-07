@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useListPacks, useListCards } from "@workspace/api-client-react";
 import { useCardTypes } from "@/contexts/CardTypesContext";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 async function uploadImage(file: File): Promise<string> {
   const fd = new FormData();

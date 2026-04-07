@@ -18,7 +18,7 @@ import { TeachersTabContent } from "./TeachersTabContent";
 
 type MainTab = "students" | "classes" | "teachers";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 interface ClassItem { id: number; name: string; teacher: string | null; color?: string | null; }
 type StudentWithClasses = { id: number; name: string; pin: string; classIds: number[]; };

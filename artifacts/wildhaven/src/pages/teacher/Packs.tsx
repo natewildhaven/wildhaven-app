@@ -47,7 +47,7 @@ function computePackRates(pack: {
     .sort((a, b) => b.pct - a.pct);
 }
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 type Tab = "packs" | "boxes";
 

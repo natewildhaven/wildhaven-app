@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
-const API_BASE = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API_BASE = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 interface Class { id: number; name: string; }
 interface Student { id: number; name: string; pin: string; classIds: number[]; }

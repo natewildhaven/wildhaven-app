@@ -28,7 +28,7 @@ type GridItem =
   | { type: "owned"; card: Card; packName: string | undefined; packBackUrl: string | null | undefined; count: number }
   | { type: "missing"; card: Card; packBackUrl: string | null | undefined };
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 export default function TeacherStudentCollection() {
   const [, params] = useRoute("/teacher/student/:id/collection");

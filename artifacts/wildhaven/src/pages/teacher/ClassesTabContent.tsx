@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { PackBankWidget } from "@/components/PackBankWidget";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 export interface ClassItem { id: number; name: string; teacher: string | null; color?: string | null; }
 interface StudentItem { id: number; name: string; classIds: number[]; }

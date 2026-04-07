@@ -10,7 +10,7 @@ import { useCardRarities } from "@/contexts/CardRaritiesContext";
 import { useCardTypes, type CardType } from "@/contexts/CardTypesContext";
 import { RarityPreviewCard } from "@/components/CollectibleCard";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 async function uploadFile(file: File, endpoint: "image" | "audio"): Promise<string> {
   const fd = new FormData();

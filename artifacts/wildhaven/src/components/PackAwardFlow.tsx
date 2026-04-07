@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useSettings } from "@/hooks/use-settings";
 import { cn } from "@/lib/utils";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 interface Class { id: number; name: string; }
 interface Student { id: number; name: string; classIds: number[]; }

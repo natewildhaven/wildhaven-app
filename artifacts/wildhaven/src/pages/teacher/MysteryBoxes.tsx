@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 interface FigurineRarity { id: number; name: string; color: string; coinValue: number; sortOrder: number; }
 interface Figurine { id: number; name: string; imageUrl?: string | null; figurineNumber: number; rarityId: number; rarityName?: string | null; rarityColor?: string | null; }

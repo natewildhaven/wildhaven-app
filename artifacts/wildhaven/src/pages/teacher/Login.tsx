@@ -10,7 +10,7 @@ import { useSettings } from "@/hooks/use-settings";
 import meadowBg from "@assets/Flowery_Meadow_1774133232233.jpg";
 import titleImg from "@assets/Website_Title_Text_1774175233073.png";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 export default function TeacherLogin() {
   const [password, setPassword] = useState("");

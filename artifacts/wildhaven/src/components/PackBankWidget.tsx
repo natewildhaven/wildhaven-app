@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Check, X, Coins, Edit2, Layers, Box } from "lucide-react";
 
-const API = import.meta.env.BASE_URL.replace(/\/$/, "") + "/api";
+const API = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "") + "/api";
 
 interface Props {
   studentId: number;
