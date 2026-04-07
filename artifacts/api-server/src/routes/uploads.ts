@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -62,14 +62,11 @@ async function saveFile(
   if (s3IsConfigured()) {
     const result = await uploadToS3(file.buffer, file.originalname, file.mimetype, prefix);
     if (result) {
-      // If a public URL was configured, return it directly
       if (result.publicUrl) return result.publicUrl;
-      // Otherwise return a proxy URL so the API server streams it
       return `/api/uploads/r2/${encodeKey(result.key)}`;
     }
   }
 
-  // Local disk fallback (ephemeral — lost on restart)
   const ext = path.extname(file.originalname);
   const filename = `${prefix.replace(/\//g, "-")}-${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
   const filePath = path.join(localUploadsDir, filename);
@@ -77,7 +74,7 @@ async function saveFile(
   return `/api/uploads/${filename}`;
 }
 
-const router: IRouter = Router();
+const router = Router();
 
 // ── Upload endpoints ──────────────────────────────────────────────────────────
 
