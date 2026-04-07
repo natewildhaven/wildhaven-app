@@ -25,11 +25,14 @@ async function getClassIdsMap(studentIds: number[]): Promise<Map<number, number[
   return map;
 }
 
-router.get("/students", async (_req, res): Promise<void> => {
+router.get("/students", async (_req: any, res: any) => {
   const [students, entryCounts] = await Promise.all([
     db.select().from(studentsTable).orderBy(studentsTable.name),
     db
-      .select({ studentId: collectionEntriesTable.studentId, count: sql<number>`count(*)::int` })
+      .select({
+  studentId: collectionEntriesTable.studentId,
+  count: sql<number>`count(*)::int` as unknown as any,
+})
       .from(collectionEntriesTable)
       .groupBy(collectionEntriesTable.studentId),
   ]);
@@ -43,7 +46,7 @@ router.get("/students", async (_req, res): Promise<void> => {
   res.json(result);
 });
 
-router.post("/students/verify-pin", async (req, res): Promise<void> => {
+router.post("/students/verify-pin", async (req: any, res: any): Promise<void> => {
   const parsed = VerifyStudentPinBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });
@@ -63,7 +66,7 @@ router.post("/students/verify-pin", async (req, res): Promise<void> => {
   res.json(student);
 });
 
-router.post("/students", async (req, res): Promise<void> => {
+router.post("/students", async (req: any, res: any): Promise<void> => {
   const parsed = CreateStudentBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });
@@ -82,7 +85,7 @@ router.post("/students", async (req, res): Promise<void> => {
   }
 });
 
-router.get("/students/:studentId", async (req, res): Promise<void> => {
+router.get("/students/:studentId", async (req: any, res: any): Promise<void> => {
   const params = GetStudentParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -103,7 +106,7 @@ router.get("/students/:studentId", async (req, res): Promise<void> => {
   res.json({ ...student, classIds: classMap.get(student.id) ?? [] });
 });
 
-router.patch("/students/:studentId", async (req, res): Promise<void> => {
+router.patch("/students/:studentId", async (req: any, res: any): Promise<void> => {
   const params = UpdateStudentParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -139,7 +142,7 @@ router.patch("/students/:studentId", async (req, res): Promise<void> => {
   }
 });
 
-router.delete("/students/:studentId", async (req, res): Promise<void> => {
+router.delete("/students/:studentId", async (req: any, res: any): Promise<void> => {
   const params = DeleteStudentParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -161,7 +164,7 @@ router.delete("/students/:studentId", async (req, res): Promise<void> => {
 
 /* ── Pack Bank ── */
 
-router.get("/students/:studentId/pack-bank", async (req, res): Promise<void> => {
+router.get("/students/:studentId/pack-bank", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const rows = await db
@@ -178,7 +181,7 @@ router.get("/students/:studentId/pack-bank", async (req, res): Promise<void> => 
   res.json(rows);
 });
 
-router.post("/students/:studentId/pack-bank/adjust", async (req, res): Promise<void> => {
+router.post("/students/:studentId/pack-bank/adjust", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { packId, delta } = req.body as { packId?: number; delta?: number };
@@ -217,7 +220,7 @@ function drawRarityForPack(pack: { commonChance: number; rareChance: number; epi
   return "Common";
 }
 
-router.post("/students/:studentId/pack-bank/open", async (req, res): Promise<void> => {
+router.post("/students/:studentId/pack-bank/open", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { packId } = req.body as { packId?: number };
@@ -286,19 +289,19 @@ router.post("/students/:studentId/pack-bank/open", async (req, res): Promise<voi
 
 /* ── Inventory (simple generic pack credits) ── */
 
-router.get("/students/:studentId/inventory", async (req, res): Promise<void> => {
+router.get("/students/:studentId/inventory", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const [[student], cardCountRow, collectibleCountRow] = await Promise.all([
     db.select({ inventoryCount: studentsTable.inventoryCount, coinsCount: studentsTable.coinsCount }).from(studentsTable).where(eq(studentsTable.id, studentId)),
-    db.select({ total: sql<number>`cast(count(distinct ${collectionEntriesTable.cardId}) as int)` }).from(collectionEntriesTable).where(eq(collectionEntriesTable.studentId, studentId)),
-    db.select({ total: sql<number>`cast(count(distinct ${studentFigurinesTable.figurineId}) as int)` }).from(studentFigurinesTable).where(eq(studentFigurinesTable.studentId, studentId)),
+    db.select({ total: sql<number>`cast(count(distinct ${collectionEntriesTable.cardId}) as int)` as unknown as any }).from(collectionEntriesTable).where(eq(collectionEntriesTable.studentId, studentId)),
+    db.select({ total: sql<number>`cast(count(distinct ${studentFigurinesTable.figurineId}) as int)` as unknown as any }).from(studentFigurinesTable).where(eq(studentFigurinesTable.studentId, studentId)),
   ]);
   if (!student) { res.status(404).json({ error: "Student not found" }); return; }
   res.json({ count: student.inventoryCount ?? 0, coins: student.coinsCount ?? 0, cardCount: cardCountRow[0]?.total ?? 0, collectibleCount: collectibleCountRow[0]?.total ?? 0 });
 });
 
-router.post("/students/:studentId/inventory/adjust", async (req, res): Promise<void> => {
+router.post("/students/:studentId/inventory/adjust", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { delta } = req.body as { delta?: number };
@@ -312,7 +315,7 @@ router.post("/students/:studentId/inventory/adjust", async (req, res): Promise<v
   res.json({ ok: true, count: newCount });
 });
 
-router.post("/students/:studentId/coins/adjust", async (req, res): Promise<void> => {
+router.post("/students/:studentId/coins/adjust", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { delta } = req.body as { delta?: number };
@@ -326,7 +329,7 @@ router.post("/students/:studentId/coins/adjust", async (req, res): Promise<void>
   res.json({ ok: true, coins: newCoins });
 });
 
-router.post("/students/:studentId/inventory/open", async (req, res): Promise<void> => {
+router.post("/students/:studentId/inventory/open", async (req: any, res: any): Promise<void> => {
   const studentId = parseInt(req.params.studentId, 10);
   if (isNaN(studentId)) { res.status(400).json({ error: "Invalid studentId" }); return; }
   const { packId } = req.body as { packId?: number };
