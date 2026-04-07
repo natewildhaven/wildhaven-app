@@ -1,6 +1,6 @@
 import { pgTable, serial, integer } from "drizzle-orm/pg-core";
-import { mysteryBoxesTable } from "./mystery-boxes";
-import { figurineRaritiesTable } from "./figurine-rarities";
+import { mysteryBoxesTable } from "./mystery-boxes.js";
+import { figurineRaritiesTable } from "./figurine-rarities.js";
 
 export const mysteryBoxRarityProbsTable = pgTable("mystery_box_rarity_probs", {
   id: serial("id").primaryKey(),
