@@ -1,7 +1,17 @@
 import { Router } from "express";
-import { eq, sql, count, and } from "drizzle-orm";
-import { db, packsTable, cardsTable, studentsTable, collectionEntriesTable } from "@workspace/db";
-import { rarityValues, type Rarity } from "@workspace/db";
+import {
+  db,
+  eq,
+  sql,
+  count,
+  and,
+  packsTable,
+  cardsTable,
+  studentsTable,
+  collectionEntriesTable,
+  rarityValues,
+  type Rarity,
+} from "@workspace/db";
 import { getCardRarityCoinValues } from "./card-rarities.js";
 import {
   CreatePackBody,
@@ -43,7 +53,7 @@ function drawRarityForPack(pack: { commonChance: number; rareChance: number; epi
 }
 
 
-router.get("/packs", async (_req, res): Promise<void> => {
+router.get("/packs", async (_req: any, res: any): Promise<void> => {
   // Order packs by the minimum card number they contain so Origins (1-30) comes
   // first, Twilight (31-60) second, etc. Packs with no cards sort to the end.
   // Also include cardCount and distinct card rarities present in each pack.
@@ -77,7 +87,7 @@ router.get("/packs", async (_req, res): Promise<void> => {
   res.json(packs);
 });
 
-router.post("/packs", async (req, res): Promise<void> => {
+router.post("/packs", async (req: any, res: any): Promise<void> => {
   const parsed = CreatePackBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });
@@ -88,7 +98,7 @@ router.post("/packs", async (req, res): Promise<void> => {
   res.status(201).json(pack);
 });
 
-router.get("/packs/:packId", async (req, res): Promise<void> => {
+router.get("/packs/:packId", async (req: any, res: any): Promise<void> => {
   const params = GetPackParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -117,7 +127,7 @@ router.get("/packs/:packId", async (req, res): Promise<void> => {
   res.json({ ...pack, cards });
 });
 
-router.patch("/packs/:packId", async (req, res): Promise<void> => {
+router.patch("/packs/:packId", async (req: any, res: any): Promise<void> => {
   const params = UpdatePackParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -144,7 +154,7 @@ router.patch("/packs/:packId", async (req, res): Promise<void> => {
   res.json(pack);
 });
 
-router.patch("/packs/:packId/availability", async (req, res): Promise<void> => {
+router.patch("/packs/:packId/availability", async (req: any, res: any): Promise<void> => {
   const packId = parseInt(req.params.packId, 10);
   if (isNaN(packId)) { res.status(400).json({ error: "Invalid packId" }); return; }
   const { available } = req.body as { available?: boolean };
@@ -155,7 +165,7 @@ router.patch("/packs/:packId/availability", async (req, res): Promise<void> => {
 });
 
 // ── Shop settings for a pack (bypasses OpenAPI-generated schema) ─────────────
-router.patch("/packs/:packId/shop", async (req, res): Promise<void> => {
+router.patch("/packs/:packId/shop", async (req: any, res: any): Promise<void> => {
   const packId = parseInt(req.params.packId, 10);
   if (isNaN(packId)) { res.status(400).json({ error: "Invalid packId" }); return; }
   const { availableInShop, coinPrice, hideMasteryUntilOwned } = req.body as { availableInShop?: boolean; coinPrice?: number; hideMasteryUntilOwned?: boolean };
@@ -169,7 +179,7 @@ router.patch("/packs/:packId/shop", async (req, res): Promise<void> => {
   res.json({ ok: true, availableInShop: pack.availableInShop, coinPrice: pack.coinPrice, hideMasteryUntilOwned: pack.hideMasteryUntilOwned });
 });
 
-router.delete("/packs/:packId", async (req, res): Promise<void> => {
+router.delete("/packs/:packId", async (req: any, res: any): Promise<void> => {
   const params = DeletePackParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
@@ -189,7 +199,7 @@ router.delete("/packs/:packId", async (req, res): Promise<void> => {
   res.sendStatus(204);
 });
 
-router.post("/packs/:packId/open", async (req, res): Promise<void> => {
+router.post("/packs/:packId/open", async (req: any, res: any): Promise<void> => {
   const params = OpenPackParams.safeParse(req.params);
   if (!params.success) {
     res.status(400).json({ error: params.error.message });
